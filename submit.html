@@ -17,14 +17,12 @@
 const result = document.getElementById('result');
 const nextBtn = document.getElementById('nextBtn');
 
-// جلب البيانات من localStorage
 const name = localStorage.getItem('name');
 const email = localStorage.getItem('email');
 
-// عرض البيانات فقط الاسم و البريد
-result.innerHTML =  `
+result.innerHTML = `
 الاسم: ${name} <br>
-البريد: ${email} <br>`
+البريد: ${email}`
 ;
 
 nextBtn.addEventListener('click', () => {
