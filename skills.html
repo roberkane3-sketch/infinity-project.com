@@ -3,7 +3,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Show Us Your Skills</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -14,8 +13,8 @@
     <p>Please fill your information and select your skills below.</p>
 
     <form id="skillsForm">
-        <input type="text" name="name" id="nameInput" placeholder="Your Full Name" required>
-        <input type="email" name="email" id="emailInput" placeholder="Your Email" required>
+        <input type="text" id="nameInput" placeholder="Your Full Name" required>
+        <input type="email" id="emailInput" placeholder="Your Email" required>
 
         <label><input type="checkbox" name="skills" value="Web Development"> Web Development</label>
         <label><input type="checkbox" name="skills" value="AI Development"> AI Development</label>
@@ -30,10 +29,10 @@
     </form>
 </div>
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+
+<!-- Firebase V8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -43,34 +42,31 @@ const firebaseConfig = {
   storageBucket: "infinity-project-f9c1b.firebasestorage.app",
   messagingSenderId: "905786527606",
   appId: "1:905786527606:web:e99b9090b9341c6de77457",
-  measurementId: "G-H2950PPK9B"
+  measurementId: "G-H2950PPK9B",
+  databaseURL: "https://infinity-project-f9c1b-default-rtdb.firebaseio.com/"
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-const analytics = firebase.analytics(app);
+firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-const form = document.getElementById('skillsForm');
-form.addEventListener('submit', function(event){
-    event.preventDefault();
+// Handle form
+document.getElementById("skillsForm").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    const name = document.getElementById('nameInput').value;
-    const email = document.getElementById('emailInput').value;
-    const skills = Array.from(form.querySelectorAll('input[name="skills"]:checked')).map(i => i.value);
+    const name = document.getElementById("nameInput").value;
+    const email = document.getElementById("emailInput").value;
+    const skills = Array.from(document.querySelectorAll('input[name="skills"]:checked')).map(x => x.value);
 
-    const submission = { name, email, skills, timestamp: Date.now() };
-    const newKey = firebase.database().ref().child('submissions').push().key;
-    const updates = {};
-    updates['/submissions/' + newKey] = submission;
+    const submission = { name, email, skills, time: Date.now() };
 
-    firebase.database().ref().update(updates)
-        .then(() => {
-            localStorage.setItem('name', name);
-            localStorage.setItem('email', email);
-            localStorage.setItem('skills', JSON.stringify(skills));
-            window.location.href = 'submit.html';
-        })
-        .catch(error => alert("حدث خطأ: " + error));
+    database.ref("submissions").push(submission)
+    .then(() => {
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("skills", JSON.stringify(skills));
+        window.location.href = "submit.html";
+    })
+    .catch(err => alert("Error: " + err));
 });
 </script>
 
