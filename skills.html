@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Us Your Skills</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* Inputs professional like buttons */
+.input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #29292e;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.input:focus { background: #3a3a42; outline: none; }
+
+/* Error messages */
+.error { color: #ff4d4f; font-size: 13px; margin-bottom: 10px; display: none; }
+
+/* Skill button as a label */
+#toggleSkillsLabel {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: white;
+    color: #2a1f4d;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+#toggleSkillsLabel:hover { background: #dfd7ff; }
+
+/* Hidden checkbox to toggle list */
+#toggleSkillsCheckbox { display: none; }
+
+/* Skills list hidden by default */
+.skills-list {
+    max-height: 0;
+    overflow: hidden;
+    background: #202024;
+    padding: 0 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+#toggleSkillsCheckbox:checked ~ .skills-list {
+    max-height: 500px;
+    padding: 15px;
+}
+
+/* Submit button */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: #7a73ff;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.submit-btn:hover { background: #5f58e6; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Show Us Your Skills</h1>
+    <p>Please fill your information and select your skills below.</p>
+
+    <!-- Form with real submit -->
+    <form id="skillsForm" action="submit.php" method="POST">
+        <input type="text" name="name" placeholder="Your Full Name" class="input" id="nameInput" required>
+        <div class="error" id="nameError">⚠️ Please enter your full name</div>
+
+        <input type="email" name="email" placeholder="Your Email" class="input" id="emailInput" required>
+        <div class="error" id="emailError">⚠️ Please enter a valid email address</div>
+
+        <!-- Hidden checkbox for CSS toggle -->
+        <input type="checkbox" id="toggleSkillsCheckbox">
+        <label for="toggleSkillsCheckbox" id="toggleSkillsLabel">Select Skills ▼</label>
+
+        <!-- Skills list -->
+        <div class="skills-list">
+            <label><input type="checkbox" name="skills[]" value="Web Development"> Web Development</label>
+            <label><input type="checkbox" name="skills[]" value="AI Development"> AI Development</label>
+            <label><input type="checkbox" name="skills[]" value="UI/UX Design"> UI/UX Design</label>
+            <label><input type="checkbox" name="skills[]" value="Graphic Design"> Graphic Design</label>
+            <label><input type="checkbox" name="skills[]" value="Cyber Security"> Cyber Security</label>
+            <label><input type="checkbox" name="skills[]" value="Mobile Development"> Mobile Development</label>
+            <label><input type="checkbox" name="skills[]" value="Data Analysis"> Data Analysis</label>
+            <label><input type="checkbox" name="skills[]" value="Content Creation"> Content Creation</label>
+        </div>
+
+        <!-- Finish button -->
+        <button type="submit" class="submit-btn">Finish ➜</button>
+    </form>
+</div>
+
+<script>
+// Form validation
+const form = document.getElementById('skillsForm');
+const nameInput = document.getElementById('nameInput');
+const emailInput = document.getElementById('emailInput');
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+form.addEventListener('submit', function(e){
+    let valid = true;
+    // Name validation
+    if(nameInput.value.trim() === ''){
+        nameError.style.display = 'block';
+        valid = false;
+    } else { nameError.style.display = 'none'; }
+
+    // Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(emailInput.value.trim() === '' || !emailPattern.test(emailInput.value)){
+        emailError.style.display = 'block';
+        valid = false;
+    } else { emailError.style.display = 'none'; }
+
+    if(!valid){ e.preventDefault(); }
+});
+</script>
+
+</body>
+</html>
