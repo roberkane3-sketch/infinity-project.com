@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +17,14 @@
 const result = document.getElementById('result');
 const nextBtn = document.getElementById('nextBtn');
 
+// جلب البيانات من localStorage
 const name = localStorage.getItem('name');
 const email = localStorage.getItem('email');
-const skills = JSON.parse(localStorage.getItem('skills') || '[]');
 
+// عرض البيانات فقط الاسم و البريد
 result.innerHTML =  `
 الاسم: ${name} <br>
-البريد: ${email} <br>
-المهارات: ${skills.join(', ')} `
+البريد: ${email} <br>`
 ;
 
 nextBtn.addEventListener('click', () => {
