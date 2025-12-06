@@ -9,22 +9,23 @@
 <div class="container">
     <h1>تم الإرسال بنجاح!</h1>
     <div id="result"></div>
-    <button id="nextBtn" class="btn">Next ➜</button>
+    <button id="nextBtn">Next ➜</button>
 </div>
 
 <script>
 const result = document.getElementById('result');
-const name = localStorage.getItem('name') || '';
-const email = localStorage.getItem('email') || '';
+const nextBtn = document.getElementById('nextBtn');
+
+const name = localStorage.getItem('name');
+const email = localStorage.getItem('email');
 const skills = JSON.parse(localStorage.getItem('skills') || '[]');
 
-result.innerHTML = `
+result.innerHTML =  `
 الاسم: ${name} <br>
 البريد: ${email} <br>
 المهارات: ${skills.join(', ')} `
 ;
 
-const nextBtn = document.getElementById('nextBtn');
 nextBtn.addEventListener('click', () => {
     window.location.href = 'terms.html';
 });

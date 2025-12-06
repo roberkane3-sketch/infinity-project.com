@@ -1,9 +1,69 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: linear-gradient(#2a1f4d,#0f1221); color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-.container { background: rgba(255,255,255,0.05); backdrop-filter: blur(8px); border: 2px solid rgba(255,255,255,0.18); padding: 40px; width: 90%; max-width: 650px; border-radius: 20px; animation: fadeIn 0.9s ease; }
-h1 { text-align: center; margin-bottom: 20px; font-size: 30px; }
-p { line-height: 1.7; opacity: 0.92; font-size: 17px; margin-bottom: 20px; }
-.btn { display: block; width: 100%; padding: 14px; margin: 10px 0; border: none; background: white; color: #2a1f4d; font-weight: bold; font-size: 17px; border-radius: 12px; cursor: pointer; transition: 0.3s; text-align: center; }
-.btn:hover { background: #dfd7ff; }
-.btn-row { display: flex; justify-content: space-between; margin-top: 25px; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(#2a1f4d, #0f1221);
+    color: white;
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    border: 2px solid rgba(255,255,255,0.18);
+    padding: 40px;
+    width: 90%;
+    max-width: 650px;
+    border-radius: 20px;
+    animation: fadeIn 0.9s ease;
+}
+
+h1 { text-align:center; margin-bottom:20px; font-size:30px; }
+p { line-height:1.7; opacity:0.92; font-size:17px; margin-bottom:20px; }
+
+.btn, button {
+    display:block;
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    background:white;
+    color:#2a1f4d;
+    font-weight:bold;
+    font-size:17px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+    text-align:center;
+}
+
+.btn:hover, button:hover { background:#dfd7ff; }
+
+.input {
+    width:100%;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+    background:#29292e;
+    color:white;
+    cursor:pointer;
+    margin-bottom:10px;
+    font-size:15px;
+    transition:0.2s;
+}
+
+.input:focus { background:#3a3a42; outline:none; }
+
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(25px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+@media(max-width:500px) {
+    .btn-row { flex-direction:column; }
+    .btn-row .btn { margin:6px 0; }
+}
