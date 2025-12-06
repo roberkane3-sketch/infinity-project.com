@@ -9,24 +9,21 @@
 <div class="container">
     <h1>تم الإرسال بنجاح!</h1>
     <div id="result"></div>
-
-    <!-- زر Next بدل الانتقال التلقائي -->
     <button id="nextBtn" class="btn">Next ➜</button>
 </div>
 
 <script>
 const result = document.getElementById('result');
-const name = localStorage.getItem('name') || 'لم يتم إدخال الاسم';
-const email = localStorage.getItem('email') || 'لم يتم إدخال البريد';
+const name = localStorage.getItem('name') || '';
+const email = localStorage.getItem('email') || '';
 const skills = JSON.parse(localStorage.getItem('skills') || '[]');
 
 result.innerHTML = `
 الاسم: ${name} <br>
 البريد: ${email} <br>
-المهارات: ${skills.join(', ')}`
+المهارات: ${skills.join(', ')} `
 ;
 
-// عند الضغط على الزر → الذهاب لـ terms.html
 const nextBtn = document.getElementById('nextBtn');
 nextBtn.addEventListener('click', () => {
     window.location.href = 'terms.html';
