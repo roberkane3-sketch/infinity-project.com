@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Submission</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>تم الإرسال بنجاح!</h1>
+    <div id="result"></div>
+</div>
+
+<script>
+const result = document.getElementById('result');
+const name = localStorage.getItem('name');
+const email = localStorage.getItem('email');
+const skills = JSON.parse(localStorage.getItem('skills') || '[]');
+
+result.innerHTML = 
+الاسم: ${name} <br>
+البريد: ${email} <br>
+المهارات: ${skills.join(', ')}
+;
+
+setTimeout(() => {
+    window.location.href = 'terms.html';
+}, 2000);
+</script>
+</body>
+</html>
