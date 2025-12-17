@@ -21,10 +21,7 @@ const nextBtn = document.getElementById('nextBtn');
 const name = localStorage.getItem('name');
 const email = localStorage.getItem('email');
 
-result.innerHTML = `
-الاسم: ${name} <br>
-البريد: ${email}`
-;
+result.textContent =` الاسم: ${name} | البريد: ${email}`;
 
 nextBtn.addEventListener('click', () => {
     window.location.href = 'thanks.html';

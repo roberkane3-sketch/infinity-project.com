@@ -51,8 +51,30 @@ document.getElementById("infoForm").addEventListener("submit", function (e) {
     const submission = { name, email, timestamp: Date.now() };
 
     // إرسال البيانات إلى Firebase
-    database.ref("submissions").push(submission)
+  const safeEmail = email.replace(/\./g, "_");
+const userRef = database.ref("submissions/" + safeEmail);
+
+userRef.once("value")
+.then(snapshot => {
+    if (snapshot.exists()) {
+        alert("هذا البريد الإلكتروني مسجل مسبقًا ❌");
+        return;
+    }
+
+    const submission = {
+        name,
+        email,
+        timestamp: Date.now()
+    };
+
+    userRef.set(submission)
     .then(() => {
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        window.location.href = "submit.html";
+    });
+}); 
+    then(() => {
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
 
