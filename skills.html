@@ -25,7 +25,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <script>
-// Firebase config
+// ================== Firebase Config ==================
 const firebaseConfig = {
   apiKey: "AIzaSyAFKutntyzrXy6GrmVdi0XRl-I-CM7fdpI",
   authDomain: "infinity-project-f9c1b.firebaseapp.com",
@@ -41,52 +41,54 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-// Form submission
+// ================== Form Submission ==================
 document.getElementById("infoForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const name = document.getElementById("nameInput").value;
-    const email = document.getElementById("emailInput").value;
+    const name = document.getElementById("nameInput").value.trim();
+    const email = document.getElementById("emailInput").value.trim();
 
-    const submission = { name, email, timestamp: Date.now() };
-
-    // إرسال البيانات إلى Firebase
-  const safeEmail = email.replace(/\./g, "_");
-const userRef = database.ref("submissions/" + safeEmail);
-
-userRef.once("value")
-.then(snapshot => {
-    if (snapshot.exists()) {
-        alert("هذا البريد الإلكتروني مسجل مسبقًا ❌");
+    if (!name || !email) {
+        alert("يرجى ملء جميع الحقول");
         return;
     }
 
-    const submission = {
-        name,
-        email,
-        timestamp: Date.now()
-    };
+    // جعل البريد مفتاحًا فريدًا
+    const safeEmail = email.replace(/\./g, "_");
+    const userRef = database.ref("submissions/" + safeEmail);
 
-    userRef.set(submission)
+    // التحقق هل مسجل مسبقًا
+    userRef.once("value")
+    .then(snapshot => {
+        if (snapshot.exists()) {
+            alert("هذا البريد الإلكتروني مسجل مسبقًا ❌");
+            return;
+        }
+
+        const submission = {
+            name: name,
+            email: email,
+            timestamp: Date.now()
+        };
+
+        return userRef.set(submission);
+    })
     .then(() => {
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
         window.location.href = "submit.html";
-    });
-}); 
-    then(() => {
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
-
-        // تحويل للصفحة التالية
-        window.location.href = "submit.html";
     })
-    .catch(err => alert("حدث خطأ: " + err));
+    .catch(error => {
+        console.error(error);
+        alert("حدث خطأ أثناء التسجيل ❌");
+    });
 });
 </script>
+
 <div class="shape"></div>
 <div class="shape square"></div>
 <div class="shape"></div>
 <div class="shape square"></div>
+
 </body>
 </html>
