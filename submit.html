@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="container">
     <h1>تم الإرسال بنجاح!</h1>
     <div id="result"></div>
@@ -21,15 +22,18 @@ const nextBtn = document.getElementById('nextBtn');
 const name = localStorage.getItem('name');
 const email = localStorage.getItem('email');
 
+// التصحيح هنا فقط
 result.textContent =` الاسم: ${name} | البريد: ${email}`;
 
-nextBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', function () {
     window.location.href = 'thanks.html';
 });
 </script>
+
 <div class="shape"></div>
 <div class="shape square"></div>
 <div class="shape"></div>
 <div class="shape square"></div>
+
 </body>
 </html>
